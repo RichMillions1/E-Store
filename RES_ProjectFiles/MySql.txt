@@ -1,0 +1,107 @@
+drop database if exists store;
+
+create database store;
+
+use store;
+
+
+drop table if exists Customers;
+
+drop table if exists Goods;
+
+drop table if exists OrderLineItems;
+
+drop table if exists Orders;
+
+/*==============================================================*/
+/* Table: Customers                                             */
+/*==============================================================*/
+create table Customers
+(
+   id                   varchar(20) not null,
+   name                 varchar(50) not null,
+   password             varchar(20) not null,
+   address              varchar(100),
+   phone                varchar(20),
+   birthday             bigint,
+   primary key (id)
+);
+
+alter table Customers comment 'User';
+
+/*==============================================================*/
+/* Table: Goods                                                 */
+/*==============================================================*/
+create table Goods
+(
+   id                   int not null auto_increment,
+   name                 varchar(100) not null,
+   price                float comment 'Unit price',
+   description          varchar(200) comment 'Product description',
+   brand                varchar(30) comment 'Computer Brands',
+   cpu_brand            varchar(30) comment 'CPU Brand',
+   cpu_type             varchar(30) comment 'CPU model',
+   memory_capacity      varchar(30) comment 'RAM',
+   hd_capacity          varchar(30) comment 'Hard disk capacity',
+   card_model           varchar(30) comment 'Graphics card model',
+   displaysize          varchar(30) comment 'Display size',
+   image                varchar(100) comment 'pictures',
+   primary key (id)
+);
+
+/*==============================================================*/
+/* Table: OrderLineItems                                        */
+/*==============================================================*/
+create table OrderLineItems
+(
+   id                   int not null auto_increment,
+   goodsid              int not null,
+   orderid              varchar(20) not null,
+   quantity             int,
+   sub_total            float,
+   primary key (id)
+);
+
+/*==============================================================*/
+/* Table: Orders                                                */
+/*==============================================================*/
+create table Orders
+(
+   id                   varchar(20) not null,
+   order_date           bigint default NULL,
+   status               int default 1 comment '1 Represents confirmation pending 0 for confirmed',
+   total                float,
+   primary key (id)
+);
+
+alter table OrderLineItems add constraint FK_Relationship_3 foreign key (orderid)
+      references Orders (id) on delete restrict on update restrict;
+
+alter table OrderLineItems add constraint FK_Relationship_4 foreign key (goodsid)
+      references Goods (id) on delete restrict on update restrict;
+
+use store;
+
+
+insert into Goods values (1,'New Lenovo High Spec Ryzen 5',720,'New Lenovo High Spec Ryzen 5 Quad Turbo 3.7GHz Laptop, 8GB RAM, 512GB Very Fast SSD, HD Graphics, Win 11 Pro, MS Office Pro Plus, Very Long Battery Life …','Lenovo','Intel ','Intel i7','16G','1T','Discrete graphics card','16 inches','71ty0BL7PZLACSL1500.jpg');
+insert into Goods values (2,'Acer Swift 1 SF114-34',339,'Acer Swift 1 SF114-34 14 inch Laptop - (Intel Pentium N6000, 4GB, 128GB SSD, Full HD Display, Microsoft Office 365, Windows 11 in S Mode, Silver) ','Acer ','Intel','Intel i5','4G','512GB','','14 inch','81fpBC3lFLACSL1500.jpg');
+insert into Goods values (3,'Samsung Galaxy Book',726,'Samsung Galaxy Book Intel Core i7 with Windows 11 Home 15.6 Inch Laptop 8GB RAM 256GB Storage Mystic Silver (UK Version) ','Samsung ','Intel','Intel Core i7','8G','256GB','','15.6 inch','81lWO62IzOLACSL1500.jpg');
+insert into Goods values (4,'HUAWEI MateBook D 15 Laptop',485,'HUAWEI MateBook D 15 Laptop, Windows 11 , 15.6 inch Ultrabook with 1080P Eye Comfort FullView Display, AMD Ryzen 5 5500U Processor, Fingerprint Power Button, 8GB memory, 512GB SSD, Silver','HUAWEI ','AMD','AMD Ryzen 5','8G','515G','AMD Ryzen','15.6 inches','512E2bzmhLACSL1000.jpg');
+insert into Goods values (5,'Acer Swift 1 SF114-34',339,'Acer Swift 1 SF114-34 14 inch Laptop - (Intel Pentium N6000, 4GB, 128GB SSD, Full HD Display, Microsoft Office 365, Windows 11 in S Mode, Silver) ','Acer ','Intel','Intel i5','4G','512GB','','14 inch','81fpBC3lFLACSL1500.jpg');
+insert into Goods values (6,'Samsung Galaxy Book',726,'Samsung Galaxy Book Intel Core i7 with Windows 11 Home 15.6 Inch Laptop 8GB RAM 256GB Storage Mystic Silver (UK Version) ','Samsung ','Intel','Intel Core i7','8G','256GB','','15.6 inch','81lWO62IzOLACSL1500.jpg');
+insert into Goods values (7,'HUAWEI MateBook D 15 Laptop',485,'HUAWEI MateBook D 15 Laptop, Windows 11 , 15.6 inch Ultrabook with 1080P Eye Comfort FullView Display, AMD Ryzen 5 5500U Processor, Fingerprint Power Button, 8GB memory, 512GB SSD, Silver','HUAWEI ','AMD','AMD Ryzen 5','8G','515G','AMD Ryzen','15.6 inches','512E2bzmhLACSL1000.jpg');
+insert into Goods values (8,'Samsung Galaxy Book',726,'Samsung Galaxy Book Intel Core i7 with Windows 11 Home 15.6 Inch Laptop 8GB RAM 256GB Storage Mystic Silver (UK Version) ','Samsung ','Intel','Intel Core i7','8G','256GB','','15.6 inch','81lWO62IzOLACSL1500.jpg');
+insert into Goods values (9,'HUAWEI MateBook D 15 Laptop',485,'HUAWEI MateBook D 15 Laptop, Windows 11 , 15.6 inch Ultrabook with 1080P Eye Comfort FullView Display, AMD Ryzen 5 5500U Processor, Fingerprint Power Button, 8GB memory, 512GB SSD, Silver','HUAWEI ','AMD','AMD Ryzen 5','8G','515G','AMD Ryzen','15.6 inches','512E2bzmhLACSL1000.jpg');
+insert into Goods values (10,'Dell Inspiron 3000 15.6 inch',572,'Dell Inspiron 3000 15.6 ince FHD Laptop, AMD Ryzen 5 3500U, 8GB RAM, 256GB SSD, Windows 11 Home (Black)','Dell','Intel','AMD Ryzen','8G','256GB','GTX 9','15.6 inch','71n1sUAThQLACSL1500.jpg');
+insert into Goods values (11,'New Lenovo High Spec Ryzen 5',720,'New Lenovo High Spec Ryzen 5 Quad Turbo 3.7GHz Laptop, 8GB RAM, 512GB Very Fast SSD, HD Graphics, Win 11 Pro, MS Office Pro Plus, Very Long Battery Life …','Lenovo','Intel ','Intel i7','16G','1T','Discrete graphics card','16 inches','71ty0BL7PZLACSL1500.jpg');
+insert into Goods values (12,'HUAWEI MateBook D 15 Laptop',485,'HUAWEI MateBook D 15 Laptop, Windows 11 , 15.6 inch Ultrabook with 1080P Eye Comfort FullView Display, AMD Ryzen 5 5500U Processor, Fingerprint Power Button, 8GB memory, 512GB SSD, Silver','HUAWEI ','AMD','AMD Ryzen 5','8G','515G','AMD Ryzen','15.6 inches','512E2bzmhLACSL1000.jpg');
+insert into Goods values (13,'Dell Inspiron 3000 15.6 inch',572,'Dell Inspiron 3000 15.6 ince FHD Laptop, AMD Ryzen 5 3500U, 8GB RAM, 256GB SSD, Windows 11 Home (Black)','Dell','Intel','AMD Ryzen','8G','256GB','GTX 9','15.6 inch','71n1sUAThQLACSL1500.jpg');
+insert into Goods values (14,'New Lenovo High Spec Ryzen 5',720,'New Lenovo High Spec Ryzen 5 Quad Turbo 3.7GHz Laptop, 8GB RAM, 512GB Very Fast SSD, HD Graphics, Win 11 Pro, MS Office Pro Plus, Very Long Battery Life …','Lenovo','Intel ','Intel i7','16G','1T','Discrete graphics card','16 inches','71ty0BL7PZLACSL1500.jpg');
+insert into Goods values (15,'New Lenovo High Spec Ryzen 5',720,'New Lenovo High Spec Ryzen 5 Quad Turbo 3.7GHz Laptop, 8GB RAM, 512GB Very Fast SSD, HD Graphics, Win 11 Pro, MS Office Pro Plus, Very Long Battery Life …','Lenovo','Intel ','Intel i7','16G','1T','Discrete graphics card','16 inches','71ty0BL7PZLACSL1500.jpg');
+
+
+insert into Customers value('qwer', 'qwer', 'qwer', 'Dublin 01', '0979799999', 1990-01-01);
+
+
+
+
